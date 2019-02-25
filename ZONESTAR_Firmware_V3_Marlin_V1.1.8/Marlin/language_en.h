@@ -69,6 +69,9 @@
 #ifndef MSG_AUTO_HOME
   #define MSG_AUTO_HOME                       _UxGT("Auto home")
 #endif
+#ifndef MSG_LEVELING_TEST
+  #define MSG_LEVELING_TEST                       _UxGT("Bed Level Test")
+#endif
 #ifndef MSG_AUTO_HOME_X
   #define MSG_AUTO_HOME_X                     _UxGT("Home X")
 #endif

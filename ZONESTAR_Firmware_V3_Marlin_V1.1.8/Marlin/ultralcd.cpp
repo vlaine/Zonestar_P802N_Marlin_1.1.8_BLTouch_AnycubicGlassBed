@@ -1993,7 +1993,10 @@ void kill_screen(const char* lcd_msg) {
 
       #if DISABLED(MESH_BED_LEVELING)
         if (!(axis_known_position[X_AXIS] && axis_known_position[Y_AXIS] && axis_known_position[Z_AXIS]))
+		{
           MENU_ITEM(gcode, MSG_AUTO_HOME, PSTR("G28"));
+		  MENU_ITEM(gcode, MSG_LEVELING_TEST, PSTR("G1 Z0 F600"));
+	    }
         else
       #endif
         if (leveling_is_valid()) {
@@ -2591,20 +2594,47 @@ void kill_screen(const char* lcd_msg) {
     MENU_BACK(MSG_MAIN);
 
     //
+    // Disable Steppers
+    //
+    MENU_ITEM(gcode, MSG_DISABLE_STEPPERS, PSTR("M84"));
+    
+    //
+    // Auto Home
+    //
+    MENU_ITEM(gcode, MSG_AUTO_HOME, PSTR("G28"));
+	  MENU_ITEM(gcode, MSG_LEVELING_TEST, PSTR("G1 Z0 F600"));
+    #if ENABLED(INDIVIDUAL_AXIS_HOMING_MENU)
+      MENU_ITEM(gcode, MSG_AUTO_HOME_X, PSTR("G28 X"));
+      MENU_ITEM(gcode, MSG_AUTO_HOME_Y, PSTR("G28 Y"));
+      MENU_ITEM(gcode, MSG_AUTO_HOME_Z, PSTR("G28 Z"));
+    #endif
+
+    //
     // Move Axis
     //
     #if ENABLED(DELTA)
       if (axis_homed[X_AXIS] && axis_homed[Y_AXIS] && axis_homed[Z_AXIS])
     #endif
         MENU_ITEM(submenu, MSG_MOVE_AXIS, lcd_move_menu);
+        
     //
-    // Auto Home
+    // Level Bed
     //
-    MENU_ITEM(gcode, MSG_AUTO_HOME, PSTR("G28"));
-    #if ENABLED(INDIVIDUAL_AXIS_HOMING_MENU)
-      MENU_ITEM(gcode, MSG_AUTO_HOME_X, PSTR("G28 X"));
-      MENU_ITEM(gcode, MSG_AUTO_HOME_Y, PSTR("G28 Y"));
-      MENU_ITEM(gcode, MSG_AUTO_HOME_Z, PSTR("G28 Z"));
+    #if ENABLED(AUTO_BED_LEVELING_UBL)
+      MENU_ITEM(submenu, MSG_UBL_LEVEL_BED, _lcd_ubl_level_bed);
+    #elif ENABLED(LCD_BED_LEVELING)
+      #if ENABLED(PROBE_MANUALLY)
+        if (!g29_in_progress)
+      #endif
+          MENU_ITEM(submenu, MSG_BED_LEVELING,
+            #if ENABLED(ENABLE_LEVELING_FADE_HEIGHT)
+              _lcd_goto_bed_leveling
+            #else
+              lcd_bed_leveling
+            #endif
+          );
+    #elif PLANNER_LEVELING && DISABLED(PROBE_MANUALLY)
+      MENU_ITEM(gcode, MSG_BED_LEVELING, PSTR("G28\nG29"));
     #endif
     
 	//level corners
@@ -2627,11 +2657,6 @@ void kill_screen(const char* lcd_msg) {
 	#if ENABLED(ENABLE_MIXING_SET_MENUE)       
 	MENU_ITEM(submenu, MSG_SET_MIXRATIO, lcd_set_mix_ratio);
 	#endif
-
-    //
-    // Disable Steppers
-    //
-    MENU_ITEM(gcode, MSG_DISABLE_STEPPERS, PSTR("M84"));
 
     //
     // Change filament
@@ -2665,26 +2690,6 @@ void kill_screen(const char* lcd_msg) {
       #endif
 
     #endif // TEMP_SENSOR_0 != 0
-	
-    //
-    // Level Bed
-    //
-    #if ENABLED(AUTO_BED_LEVELING_UBL)
-      MENU_ITEM(submenu, MSG_UBL_LEVEL_BED, _lcd_ubl_level_bed);
-    #elif ENABLED(LCD_BED_LEVELING)
-      #if ENABLED(PROBE_MANUALLY)
-        if (!g29_in_progress)
-      #endif
-          MENU_ITEM(submenu, MSG_BED_LEVELING,
-            #if ENABLED(ENABLE_LEVELING_FADE_HEIGHT)
-              _lcd_goto_bed_leveling
-            #else
-              lcd_bed_leveling
-            #endif
-          );
-    #elif PLANNER_LEVELING && DISABLED(PROBE_MANUALLY)
-      MENU_ITEM(gcode, MSG_BED_LEVELING, PSTR("G28\nG29"));
-    #endif
 	
     //
     // BLTouch Self-Test and Reset
@@ -2817,6 +2822,7 @@ void kill_screen(const char* lcd_msg) {
       MENU_ITEM(submenu, MSG_DELTA_SETTINGS, lcd_delta_settings);
       #if ENABLED(DELTA_CALIBRATION_MENU)
         MENU_ITEM(submenu, MSG_AUTO_HOME, _lcd_delta_calibrate_home);
+		MENU_ITEM(gcode, MSG_LEVELING_TEST, PSTR("G1 Z0 F600"));
         if (axis_homed[X_AXIS] && axis_homed[Y_AXIS] && axis_homed[Z_AXIS]) {
           MENU_ITEM(submenu, MSG_DELTA_CALIBRATE_X, _goto_tower_x);
           MENU_ITEM(submenu, MSG_DELTA_CALIBRATE_Y, _goto_tower_y);
@@ -3144,7 +3150,10 @@ void kill_screen(const char* lcd_msg) {
       MENU_ITEM(submenu, MSG_MOVE_Z, lcd_move_get_z_amount);
     }
     else
+	{
       MENU_ITEM(gcode, MSG_AUTO_HOME, PSTR("G28"));
+	  MENU_ITEM(gcode, MSG_LEVELING_TEST, PSTR("G1 Z0 F600"));
+	}
 
     #if ENABLED(SWITCHING_EXTRUDER) || ENABLED(DUAL_X_CARRIAGE)
       if (active_extruder)
@@ -4040,6 +4049,7 @@ void kill_screen(const char* lcd_msg) {
 	    	defer_return_to_status = true;
 		  	//
 			MENU_ITEM(gcode, MSG_AUTO_HOME, PSTR("G28"));
+			MENU_ITEM(gcode, MSG_LEVELING_TEST, PSTR("G1 Z0 F600"));
 			//
 			MENU_ITEM(gcode, MSG_FAST_TO_TOP, PSTR(
 				"M203 X150 Y150 Z16\n"
@@ -4766,7 +4776,7 @@ void lcd_update() {
         wait_for_user = false;           //  Any click clears wait for user
         lcd_quick_feedback();            //  Always make a click sound
       }
-    }
+    }	
     else wait_for_unclick = false;
   #endif
 
@@ -5247,7 +5257,7 @@ void lcd_reset_alert_level() { lcd_status_message_level = 0; }
   #endif
 
   #if ENABLED(AUTO_BED_LEVELING_UBL) || ENABLED(G26_MESH_VALIDATION)
-    bool is_lcd_clicked() { return LCD_CLICKED; }
+    bool is_lcd_clicked() { return LCD_CLICKED; }	
     void wait_for_release() {
       while (is_lcd_clicked()) safe_delay(50);
       safe_delay(50);

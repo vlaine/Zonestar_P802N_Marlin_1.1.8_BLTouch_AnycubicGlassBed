@@ -30,22 +30,6 @@ http://www.zonestar3d.com/
 #define	MAX_ACC_Y			800
 #define	MAX_ACC_Z			100
 
-#define X_MIN_ENDSTOP_INVERTING 		true // set to true to invert the logic of the endstop.
-#define Y_MIN_ENDSTOP_INVERTING 		true // set to true to invert the logic of the endstop.
-#define Z_MIN_ENDSTOP_INVERTING 		true // set to true to invert the logic of the endstop.
-#define X_MAX_ENDSTOP_INVERTING 		false // set to true to invert the logic of the endstop.
-#define Y_MAX_ENDSTOP_INVERTING 		false // set to true to invert the logic of the endstop.
-#define Z_MAX_ENDSTOP_INVERTING 		false // set to true to invert the logic of the endstop.
-#define Z_MIN_PROBE_ENDSTOP_INVERTING 	true // set to true to invert the logic of the probe.
-
-#define INVERT_X_DIR 				false
-#define INVERT_Y_DIR 				false
-#define INVERT_Z_DIR 				true
-
-#define X_PROBE_OFFSET_FROM_EXTRUDER 0 //Your BLTouch X_PROBE_OFFSET_FROM_EXTRUDE
-#define Y_PROBE_OFFSET_FROM_EXTRUDER -22 //Your BLTouch Y_PROBE_OFFSET_FROM_EXTRUDE
-#define Z_PROBE_OFFSET_FROM_EXTRUDER -1.9 //Your BLTouch Z_PROBE_OFFSET_FROM_EXTRUDE
-
 #define Z_SAFE_HOMING
 #define TEMP_SENSOR_0 	56
 #define TEMP_SENSOR_BED 1
@@ -165,15 +149,27 @@ http://www.zonestar3d.com/
 #define	Z_MIN_PROBE_USES_Z_MIN_ENDSTOP_PIN
 //#define	AUTO_BED_LEVELING_LINEAR
 #define AUTO_BED_LEVELING_BILINEAR
-#define LEFT_PROBE_BED_POSITION 	10
-#define RIGHT_PROBE_BED_POSITION 	180
-#define FRONT_PROBE_BED_POSITION 	10
-#define BACK_PROBE_BED_POSITION 	180
+#define LEFT_PROBE_BED_POSITION   20
+#define RIGHT_PROBE_BED_POSITION  200
+#define FRONT_PROBE_BED_POSITION  20
+#define BACK_PROBE_BED_POSITION   185
+#define X_MIN_ENDSTOP_INVERTING    true // set to true to invert the logic of the endstop.
+#define Y_MIN_ENDSTOP_INVERTING    true // set to true to invert the logic of the endstop.
+#define Z_MIN_ENDSTOP_INVERTING    true // set to true to invert the logic of the endstop.
+#define X_MAX_ENDSTOP_INVERTING    false // set to true to invert the logic of the endstop.
+#define Y_MAX_ENDSTOP_INVERTING    false // set to true to invert the logic of the endstop.
+#define Z_MAX_ENDSTOP_INVERTING    false // set to true to invert the logic of the endstop.
+#define Z_MIN_PROBE_ENDSTOP_INVERTING   true // set to true to invert the logic of the probe.
+
+#define INVERT_X_DIR        false
+#define INVERT_Y_DIR        false
+#define INVERT_Z_DIR        true
 
 //BLTOUCH
-#define	BLTOUCH
-#define	X_PROBE_OFFSET_FROM_EXTRUDER	20
-#define	Y_PROBE_OFFSET_FROM_EXTRUDER	0
+#define  BLTOUCH
+#define X_PROBE_OFFSET_FROM_EXTRUDER -18 //Your BLTouch X_PROBE_OFFSET_FROM_EXTRUDE
+#define Y_PROBE_OFFSET_FROM_EXTRUDER -46 //Your BLTouch Y_PROBE_OFFSET_FROM_EXTRUDE
+#define Z_PROBE_OFFSET_FROM_EXTRUDER -2.8 //Your BLTouch Z_PROBE_OFFSET_FROM_EXTRUDE
 
 #elif (MODEL_NUMBER == P802N) 
 //P802N 2nd version, Single extruder,  LCD2004 and 5Key keypad, ZRIB control board
@@ -192,9 +188,9 @@ http://www.zonestar3d.com/
 
 #define AUTO_BED_LEVELING_LINEAR
 #define LEFT_PROBE_BED_POSITION 	10
-#define RIGHT_PROBE_BED_POSITION 	180
+#define RIGHT_PROBE_BED_POSITION 	210
 #define FRONT_PROBE_BED_POSITION 	10
-#define BACK_PROBE_BED_POSITION 	180
+#define BACK_PROBE_BED_POSITION 	210
 #define	X_PROBE_OFFSET_FROM_EXTRUDER	-15
 #define	Y_PROBE_OFFSET_FROM_EXTRUDER	-10
 

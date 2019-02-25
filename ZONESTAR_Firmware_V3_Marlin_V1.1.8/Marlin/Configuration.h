@@ -795,8 +795,8 @@ ZONESTAR Printer config file
  * Example: `M851 Z-5` with a CLEARANCE of 4  =>  9mm from bed to nozzle.
  *     But: `M851 Z+1` with a CLEARANCE of 2  =>  2mm from bed to nozzle.
  */
-#define Z_CLEARANCE_DEPLOY_PROBE   15 // Z Clearance for Deploy/Stow
-#define Z_CLEARANCE_BETWEEN_PROBES 10 // Z Clearance between probe points
+#define Z_CLEARANCE_DEPLOY_PROBE  5 // Z Clearance for Deploy/Stow
+#define Z_CLEARANCE_BETWEEN_PROBES 5 // Z Clearance between probe points
 
 // For M851 give a range for adjusting the Z probe offset
 #define Z_PROBE_OFFSET_RANGE_MIN -20
@@ -852,7 +852,7 @@ ZONESTAR Printer config file
 
 //#define NO_MOTION_BEFORE_HOMING  // Inhibit movement until all axes have been homed
 
-#define Z_HOMING_HEIGHT 5  // (in mm) Minimal z height before homing (G28) for Z clearance above the bed, clamps, ...
+#define Z_HOMING_HEIGHT 10  // (in mm) Minimal z height before homing (G28) for Z clearance above the bed, clamps, ...
                              // Be sure you have this distance over your Z_MAX_POS in case.
 
 // Direction of endstops when homing; 1=MAX, -1=MIN
@@ -880,8 +880,8 @@ ZONESTAR Printer config file
 #ifndef Z_MIN_POS
 #define Z_MIN_POS 		0
 #endif
-#define X_MAX_POS 		(X_BED_SIZE+10)
-#define Y_MAX_POS 		Y_BED_SIZE
+#define X_MAX_POS 		(X_BED_SIZE+abs(X_PROBE_OFFSET_FROM_EXTRUDER))
+#define Y_MAX_POS 		(Y_BED_SIZE+abs(Y_PROBE_OFFSET_FROM_EXTRUDER))
 #ifndef MAX_PRINT_HEIGHT
 #define Z_MAX_POS 		BED_SIZE
 #else
@@ -1043,7 +1043,7 @@ ZONESTAR Printer config file
     //#define ABL_BILINEAR_SUBDIVISION
     #if ENABLED(ABL_BILINEAR_SUBDIVISION)
       // Number of subdivisions between probe points
-      #define BILINEAR_SUBDIVISIONS 3
+      //#define BILINEAR_SUBDIVISIONS 4
     #endif
 
   #endif

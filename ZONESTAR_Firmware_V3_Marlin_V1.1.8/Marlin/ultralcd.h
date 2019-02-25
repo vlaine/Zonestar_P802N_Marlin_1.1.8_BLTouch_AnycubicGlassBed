@@ -146,17 +146,17 @@
     #if ENABLED(ADC_KEYPAD)
       #define KEYPAD_HOME EN_REPRAPWORLD_KEYPAD_F1
       #define KEYPAD_EN_C EN_REPRAPWORLD_KEYPAD_MIDDLE
-	  
+    
     #else
       #define KEYPAD_HOME EN_REPRAPWORLD_KEYPAD_MIDDLE
       #define KEYPAD_EN_C EN_REPRAPWORLD_KEYPAD_F1
     #endif
-    #define REPRAPWORLD_KEYPAD_MOVE_HOME    (buttons_reprapworld_keypad & KEYPAD_HOME)	
-	#if ENABLED(ZONESTAR_LCD2004_ADCKEY)
-	#define REPRAPWORLD_KEYPAD_MOVE_MENU    ((buttons_reprapworld_keypad & KEYPAD_EN_C) || (buttons_reprapworld_keypad & EN_REPRAPWORLD_KEYPAD_RIGHT))
-	#else
+    #define REPRAPWORLD_KEYPAD_MOVE_HOME    (buttons_reprapworld_keypad & KEYPAD_HOME)  
+  #if ENABLED(ZONESTAR_LCD2004_ADCKEY)
+  #define REPRAPWORLD_KEYPAD_MOVE_MENU    ((buttons_reprapworld_keypad & KEYPAD_EN_C) || (buttons_reprapworld_keypad & EN_REPRAPWORLD_KEYPAD_RIGHT))
+  #else
     #define REPRAPWORLD_KEYPAD_MOVE_MENU    (buttons_reprapworld_keypad & KEYPAD_EN_C)
-	#endif
+  #endif
 
     #if BUTTON_EXISTS(ENC)
       #define LCD_CLICKED ((buttons & EN_C) || REPRAPWORLD_KEYPAD_MOVE_MENU)
