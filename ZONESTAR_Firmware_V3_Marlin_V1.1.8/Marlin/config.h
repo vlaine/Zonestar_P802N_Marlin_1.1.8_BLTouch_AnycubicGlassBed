@@ -16,8 +16,8 @@ http://www.zonestar3d.com/
 //common setting for all of model
 //Some of the settings may be covered behind
 /*********************************************************************************************************/
-#define	STRING_CONFIG_H_AUTHOR	"(Hally@ZONESTAR)"
-#define	_FIRMWARE_RELEASE_DATE_	"2018-09"
+#define	STRING_CONFIG_H_AUTHOR	"vlaine"
+#define	_FIRMWARE_RELEASE_DATE_	"2019-02"
 #define	SHOW_ZONESTAR_LOGO
 //#define	SPINDLE_LASER_ENABLE
 

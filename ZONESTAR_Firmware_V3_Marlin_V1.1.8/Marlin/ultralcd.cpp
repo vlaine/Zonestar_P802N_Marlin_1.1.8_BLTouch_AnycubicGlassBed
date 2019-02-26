@@ -1752,8 +1752,8 @@ void kill_screen(const char* lcd_msg) {
   #endif
 
   #if ENABLED(EEPROM_SETTINGS)
-    static void lcd_store_settings()   { lcd_completion_feedback(settings.save()); }
-    static void lcd_load_settings()    { lcd_completion_feedback(settings.load()); }
+    static void lcd_store_settings()   { settings.save(); lcd_quick_feedback(); }
+    static void lcd_load_settings()    { settings.load(); lcd_quick_feedback(); }
   #endif
 
   #if ENABLED(LEVEL_BED_CORNERS)
@@ -4514,6 +4514,7 @@ void kill_screen(const char* lcd_msg) {
             else if (buttons_reprapworld_keypad & EN_REPRAPWORLD_KEYPAD_UP)    encoderPosition -= ENCODER_PULSES_PER_STEP;
             else if (buttons_reprapworld_keypad & EN_REPRAPWORLD_KEYPAD_RIGHT) encoderPosition = 0;
           }
+		  else if (buttons_reprapworld_keypad & EN_REPRAPWORLD_KEYPAD_LEFT)  { menu_action_back(); lcd_quick_feedback(); }
         }
         #if ENABLED(ADC_KEYPAD_DEBUG)
           SERIAL_PROTOCOLLNPAIR("buttons_reprapworld_keypad = ", (uint32_t)buttons_reprapworld_keypad);
