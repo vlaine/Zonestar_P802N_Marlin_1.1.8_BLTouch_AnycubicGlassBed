@@ -841,7 +841,7 @@ ZONESTAR Printer config file
 
 // For direct drive extruder v9 set to true, for geared extruder set to false.
 #ifndef INVERT_E0_DIR
-#define INVERT_E0_DIR	true
+#define INVERT_E0_DIR	false
 #define INVERT_E1_DIR 	true
 #define INVERT_E2_DIR 	true
 #define INVERT_E3_DIR 	true
@@ -1257,12 +1257,12 @@ ZONESTAR Printer config file
 // @section temperature
 
 // Preheat Constants
-#define PREHEAT_1_TEMP_HOTEND 190
-#define PREHEAT_1_TEMP_BED     50
+#define PREHEAT_1_TEMP_HOTEND 200
+#define PREHEAT_1_TEMP_BED     60
 #define PREHEAT_1_FAN_SPEED     0 // Value from 0 to 255
 
-#define PREHEAT_2_TEMP_HOTEND 240
-#define PREHEAT_2_TEMP_BED    100
+#define PREHEAT_2_TEMP_HOTEND 230
+#define PREHEAT_2_TEMP_BED    110
 #define PREHEAT_2_FAN_SPEED     0 // Value from 0 to 255
 
 /**

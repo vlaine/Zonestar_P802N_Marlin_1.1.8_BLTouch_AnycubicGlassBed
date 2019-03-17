@@ -1995,7 +1995,7 @@ void kill_screen(const char* lcd_msg) {
         if (!(axis_known_position[X_AXIS] && axis_known_position[Y_AXIS] && axis_known_position[Z_AXIS]))
 		{
           MENU_ITEM(gcode, MSG_AUTO_HOME, PSTR("G28"));
-		  MENU_ITEM(gcode, MSG_LEVELING_TEST, PSTR("G1 Z0 F600"));
+		  MENU_ITEM(gcode, MSG_LEVELING_TEST, PSTR("G1 Z0.6 F600"));
 	    }
         else
       #endif
@@ -3192,7 +3192,7 @@ void kill_screen(const char* lcd_msg) {
 
   static void lcd_factory_settings() {
     settings.reset();
-    lcd_completion_feedback();
+    lcd_quick_feedback();
   }
 
   #if ENABLED(EEPROM_SETTINGS)
